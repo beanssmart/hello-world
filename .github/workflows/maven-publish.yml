@@ -20,8 +20,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         server-id: github
-        server-username: ${{ github.actor }}
-        server-password: ${{ secrets.GITHUB_TOKEN }}
         settings-path: ${{ github.workspace }}
 
     - name: Build with Maven
@@ -30,4 +28,4 @@ jobs:
     - name: Deploy to GitHub Packages
       run: mvn deploy -s ${{ github.workspace }}/settings.xml
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
