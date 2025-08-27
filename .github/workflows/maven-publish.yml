@@ -20,13 +20,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         server-id: github
+        server-username: ${{ github.actor }}
+        server-password: ${{ secrets.GITHUB_TOKEN }}
         settings-path: ${{ github.workspace }}
-        publish: true  # sorgt dafür, dass mvn deploy automatisch läuft
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Deploy (optional)
+    - name: Deploy to GitHub Packages
       run: mvn deploy -s ${{ github.workspace }}/settings.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
